@@ -4,13 +4,32 @@ using Spectre.Console;
 
 HttpGetServices httpGetServices = new HttpGetServices();
 
-await AskUserForFossilName(httpGetServices);
+await AskUserForFossilOrArt(httpGetServices);
+
+static async Task AskUserForFossilOrArt(HttpGetServices httpGetServices)
+{
+    Console.Clear();
+    string fossilOrArt = AnsiConsole.Prompt(
+        new SelectionPrompt<string>()
+            .Title("Search [green]fossil item[/] or [green]art item[/]?")
+            .AddChoices(new[]
+            {
+            "Fossil",
+            "Art"
+            })
+        );
+
+    if (fossilOrArt == "Fossil")
+        await AskUserForFossilName(httpGetServices);
+
+    if (fossilOrArt == "Art")
+        await AskUserForArtName(httpGetServices);
+}
 
 static async Task AskUserForFossilName(HttpGetServices httpGetServices)
 {
     Console.Clear();
-    string fossilName = AnsiConsole.Ask<string>("What type of animal crossing [green]fossil[/] " +
-        "would you like more info on?").ToLower();
+    string fossilName = AnsiConsole.Ask<string>("Enter [green]fossil[/] name to search:").ToLower();
 
     var getFossilAsync = httpGetServices.GetFossilAsync(fossilName);
     AnsiConsole.MarkupLine($"\nSending GET request to Animal Crossing API for fossil: [green]{fossilName}[/]");
@@ -29,15 +48,39 @@ static async Task AskUserForFossilName(HttpGetServices httpGetServices)
     await AskUserToContinueAsync(httpGetServices);
 }
 
+static async Task AskUserForArtName(HttpGetServices httpGetServices)
+{
+    Console.Clear();
+    int artId = AnsiConsole.Ask<int>("Enter [green]art[/] id to search:");
+
+    var getArtAsync = httpGetServices.GetArtAsync(artId);
+    AnsiConsole.MarkupLine($"\nSending GET request to Animal Crossing API for Art at id: [green]{artId}[/]");
+
+    Art? art = await getArtAsync;
+
+    if (art is null)
+    {
+        AnsiConsole.MarkupLine($"\nArt at id [green]{artId}[/] not found");
+        await AskUserToContinueAsync(httpGetServices);
+    }
+
+    AnsiConsole.MarkupLine($"\n          Art Name: [green]{art.Name}[/]");
+    AnsiConsole.MarkupLine($"          Has Fake: [green]{art.HasFake}[/]");
+    AnsiConsole.MarkupLine($"         Buy Price: [green]{art.BuyPrice}[/]");
+    AnsiConsole.MarkupLine($"        Sell Price: [green]{art.SellPrice}[/]");
+    AnsiConsole.MarkupLine($"Museum Description: [green]{art.MuseumDescription}[/]");
+    await AskUserToContinueAsync(httpGetServices);
+}
+
 static async Task AskUserToContinueAsync(HttpGetServices httpGetServices)
 {
     Console.WriteLine();
     string options = AnsiConsole.Prompt(
         new SelectionPrompt<string>()
-            .Title("Get info for another fossil or Quit?")
+            .Title("Search for another item or Quit?")
             .AddChoices(new[]
             {
-                "Get info for another fossil",
+                "Search for another item",
                 "Quit"
             })
         );
@@ -45,5 +88,5 @@ static async Task AskUserToContinueAsync(HttpGetServices httpGetServices)
     if (options == "Quit")
         Environment.Exit(0);
 
-    await AskUserForFossilName(httpGetServices);
+    await AskUserForFossilOrArt(httpGetServices);
 }
