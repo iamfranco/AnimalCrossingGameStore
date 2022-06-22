@@ -1,13 +1,12 @@
 ﻿using AnimalGameStore.Models;
-using System.Net;
 using System.Text.Json;
 
 namespace AnimalGameStore.Services;
-public class FossilServices
+public class HttpGetServices
 {
     private readonly HttpClient _httpClient;
 
-    public FossilServices()
+    public HttpGetServices()
     {
         _httpClient = new HttpClient();
     }

@@ -2,9 +2,9 @@
 using AnimalGameStore.Services;
 
 namespace AnimalGameStore.Tests.Services;
-internal class FossilServicesTests
+internal class HttpGetServicesTests
 {
-    FossilServices fossilServices;
+    HttpGetServices fossilServices;
 
     [SetUp]
     public void Setup()

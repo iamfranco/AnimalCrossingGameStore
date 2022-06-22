@@ -2,11 +2,11 @@
 using AnimalGameStore.Services;
 using Spectre.Console;
 
-FossilServices fossilServices = new FossilServices();
+HttpGetServices fossilServices = new HttpGetServices();
 
 await AskUserForFossilName(fossilServices);
 
-static async Task AskUserForFossilName(FossilServices fossilServices)
+static async Task AskUserForFossilName(HttpGetServices fossilServices)
 {
     Console.Clear();
     string fossilName = AnsiConsole.Ask<string>("What type of animal crossing [green]fossil[/] " +
@@ -29,7 +29,7 @@ static async Task AskUserForFossilName(FossilServices fossilServices)
     await AskUserToContinueAsync(fossilServices);
 }
 
-static async Task AskUserToContinueAsync(FossilServices fossilServices)
+static async Task AskUserToContinueAsync(HttpGetServices fossilServices)
 {
     Console.WriteLine();
     string options = AnsiConsole.Prompt(
