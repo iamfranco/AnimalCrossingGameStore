@@ -23,11 +23,27 @@ public class HttpGetServices
         if (!response.IsSuccessStatusCode)
             return null;
 
-        string s = await response.Content.ReadAsStringAsync();
+        string fossilJson = await response.Content.ReadAsStringAsync();
 
-        Fossil? fossil = JsonSerializer.Deserialize<Fossil>(s);
+        Fossil? fossil = JsonSerializer.Deserialize<Fossil>(fossilJson);
 
         return fossil;
 
+    }
+
+    public async Task<Art?> GetArtAsync(int artId)
+    {
+        string url = $"https://acnhapi.com/v1/art/{artId}";
+
+        HttpResponseMessage response = await _httpClient.GetAsync(url);
+
+        if (!response.IsSuccessStatusCode)
+            return null;
+
+        string artJson = await response.Content.ReadAsStringAsync();
+
+        Art? art = JsonSerializer.Deserialize<Art>(artJson);
+
+        return art;
     }
 }
