@@ -4,18 +4,18 @@ using AnimalGameStore.Services;
 namespace AnimalGameStore.Tests.Services;
 internal class HttpGetServicesTests
 {
-    HttpGetServices fossilServices;
+    HttpGetServices httpGetServices;
 
     [SetUp]
     public void Setup()
     {
-        fossilServices = new();
+        httpGetServices = new();
     }
 
     [Test]
     public async Task GetFossilAsync_With_Amber_As_Input_Should_Return_Amber_FossilAsync()
     {
-        Fossil? fossil = await fossilServices.GetFossilAsync("amber");
+        Fossil? fossil = await httpGetServices.GetFossilAsync("amber");
 
         Fossil expectedResult = new Fossil { 
             Name = "amber",
@@ -33,7 +33,7 @@ internal class HttpGetServicesTests
     [Test]
     public async Task GetFossilAsync_With_NonExistent_Fossil_Input_Should_Return_Null()
     {
-        Fossil? fossil = await fossilServices.GetFossilAsync("someNonExistentFossil");
+        Fossil? fossil = await httpGetServices.GetFossilAsync("someNonExistentFossil");
 
         Fossil? expectedResult = null;
 
@@ -43,7 +43,7 @@ internal class HttpGetServicesTests
     [Test]
     public async Task GetFossilAsync_With_Empty_Fossil_Input_Should_Return_Null()
     {
-        Fossil? fossil = await fossilServices.GetFossilAsync("");
+        Fossil? fossil = await httpGetServices.GetFossilAsync("");
 
         Fossil? expectedResult = null;
 
@@ -53,7 +53,7 @@ internal class HttpGetServicesTests
     [Test]
     public async Task GetFossilAsync_With_Whitespace_Fossil_Input_Should_Return_Null()
     {
-        Fossil? fossil = await fossilServices.GetFossilAsync("  ");
+        Fossil? fossil = await httpGetServices.GetFossilAsync("  ");
 
         Fossil? expectedResult = null;
 
@@ -63,7 +63,7 @@ internal class HttpGetServicesTests
     [Test]
     public async Task GetFossilAsync_With_Null_Fossil_Input_Should_Return_Null()
     {
-        Fossil? fossil = await fossilServices.GetFossilAsync(null);
+        Fossil? fossil = await httpGetServices.GetFossilAsync(null);
 
         Fossil? expectedResult = null;
 

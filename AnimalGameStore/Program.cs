@@ -2,17 +2,17 @@
 using AnimalGameStore.Services;
 using Spectre.Console;
 
-HttpGetServices fossilServices = new HttpGetServices();
+HttpGetServices httpGetServices = new HttpGetServices();
 
-await AskUserForFossilName(fossilServices);
+await AskUserForFossilName(httpGetServices);
 
-static async Task AskUserForFossilName(HttpGetServices fossilServices)
+static async Task AskUserForFossilName(HttpGetServices httpGetServices)
 {
     Console.Clear();
     string fossilName = AnsiConsole.Ask<string>("What type of animal crossing [green]fossil[/] " +
         "would you like more info on?").ToLower();
 
-    var getFossilAsync = fossilServices.GetFossilAsync(fossilName);
+    var getFossilAsync = httpGetServices.GetFossilAsync(fossilName);
     AnsiConsole.MarkupLine($"\nSending GET request to Animal Crossing API for fossil: [green]{fossilName}[/]");
 
     Fossil? fossil = await getFossilAsync;
@@ -20,16 +20,16 @@ static async Task AskUserForFossilName(HttpGetServices fossilServices)
     if (fossil is null)
     {
         AnsiConsole.MarkupLine($"\nFossil [green]{fossilName}[/] not found");
-        await AskUserToContinueAsync(fossilServices);
+        await AskUserToContinueAsync(httpGetServices);
     }
 
     AnsiConsole.MarkupLine($"\n  Fossil Name: [green]{fossil.Name}[/]");
     AnsiConsole.MarkupLine($"        Price: [green]{fossil.Price}[/]");
     AnsiConsole.MarkupLine($"Museum Phrase: [green]{fossil.MuseumPhrase}[/]");
-    await AskUserToContinueAsync(fossilServices);
+    await AskUserToContinueAsync(httpGetServices);
 }
 
-static async Task AskUserToContinueAsync(HttpGetServices fossilServices)
+static async Task AskUserToContinueAsync(HttpGetServices httpGetServices)
 {
     Console.WriteLine();
     string options = AnsiConsole.Prompt(
@@ -45,5 +45,5 @@ static async Task AskUserToContinueAsync(HttpGetServices fossilServices)
     if (options == "Quit")
         Environment.Exit(0);
 
-    await AskUserForFossilName(fossilServices);
+    await AskUserForFossilName(httpGetServices);
 }
