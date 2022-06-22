@@ -50,7 +50,7 @@ public static class AskUser
     public static async Task AskUserForArtName(HttpGetServices httpGetServices)
     {
         Console.Clear();
-        int artId = AnsiConsole.Ask<int>("Enter [green]art[/] id to search:");
+        int artId = AnsiConsole.Ask<int>("Enter [green]art[/] id number to search (number greater than 0):");
 
         var getArtAsync = httpGetServices.GetArtAsync(artId);
         AnsiConsole.MarkupLine($"\nSending GET request to Animal Crossing API for Art at id: [green]{artId}[/]");
