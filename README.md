@@ -5,6 +5,12 @@ This is a C# console application that uses the [Animal Crossing Web API](https:/
 1. a **fossil** by entering its name in the console
 2. an **art** by entering its ID number in the console
 
+Here we have 3 folders:
+
+1. the `AnimalGameStore` folder contains the main C# project
+2. the `AnimalGameStore.Tests` folder contains the unit test code for the `AnimalGameStore` project
+3. the `diagrams` folder contains diagrams such as UML diagram and app demo gif.
+
 # Instructions
 
 **Prerequisite**: The machine running the application should have [.NET 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) (or above) installed.
