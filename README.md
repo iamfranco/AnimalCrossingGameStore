@@ -22,3 +22,7 @@ dotnet run
 # App Demo
 
 ![App Demo](diagrams/appDemo.gif)
+
+# UML Diagram
+
+![UML Diagram](diagrams/AnimalGameStore.png)

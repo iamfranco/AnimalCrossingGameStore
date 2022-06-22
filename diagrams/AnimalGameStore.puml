@@ -1,0 +1,37 @@
+@startuml "AnimalGameStore"
+skinparam ClassAttributeIconSize 0
+
+class Art {
+    + Name : string?
+    + HasFake : bool
+    + BuyPrice : int
+    + SellPrice : int
+    + MuseumDescription : string?
+}
+
+class Fossil {
+    + Name : string?
+    + Price : int
+    + MuseumPhrase : string?
+}
+
+class HttpGetServices {
+    - httpClient : HttpClient
+
+    + GetFossilAsync(fossilName : string) : Task<Fossil?>
+    + GetArtAsync(artId : int) : Task<Art?>
+}
+
+class AskUser <<static>> {
+    + AskUserForFossilOrArt(httpGetServices: HttpGetServices) : Task
+    + AskUserForFossilName(httpGetServices: HttpGetServices) : Task
+    + AskUserForArtName(httpGetServices: HttpGetServices) : Task
+    + AskUserToContinueAsync(httpGetServices: HttpGetServices) : Task
+}
+
+AskUser --> HttpGetServices
+
+HttpGetServices --> Art
+HttpGetServices --> Fossil
+
+@enduml
