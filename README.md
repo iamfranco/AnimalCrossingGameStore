@@ -1,6 +1,9 @@
 # Animal Crossing Game Store
 
-This is a C# console application that uses the [Animal Crossing Web API](https://acnhapi.com/) to allow users to search for a **fossil** in the API by entering its name in the console application.
+This is a C# console application that uses the [Animal Crossing Web API](https://acnhapi.com/) to allow users to search for a:
+
+1. a **fossil** by entering its name in the console
+2. an **art** by entering its ID number in the console
 
 # Instructions
 
@@ -9,9 +12,17 @@ This is a C# console application that uses the [Animal Crossing Web API](https:/
 To run the application:
 
 1. clone the repository to your computer
-2. then navigate to the `API Interactive Lab 1` folder (with `cd` command or otherwise)
+2. then navigate to the `AnimalGameStore` folder (with `cd` command or otherwise)
 3. then run the following command
 
 ```c#
 dotnet run
 ```
+
+# App Demo
+
+![App Demo](diagrams/appDemo.gif)
+
+# UML Diagram
+
+![UML Diagram](diagrams/AnimalGameStore.png)
